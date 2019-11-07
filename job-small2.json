@@ -1,0 +1,13 @@
+{
+  "name": "Interproscan test-1573140653",
+  "appId": "Interproscan-5.36.75u2",
+  "archive": true,
+  "inputs": {
+    "query": "agave://data.iplantcollaborative.org/shared/iplantcollaborative/example_data/interproscan/Bos_taurus.UMD3.1.pep.all.fa"
+  },
+  "parameters": {
+    "goterms": true,
+    "pathways": true,
+    "outdir": "outdir"
+  }
+}

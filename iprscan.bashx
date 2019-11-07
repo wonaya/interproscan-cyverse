@@ -1,0 +1,29 @@
+#!/bin/bash
+
+OWD=$PWD
+
+IPRSCAN_VERSION=5.36-75.0
+
+# query is a X-multifasta
+query=${query}
+goterms=${goterms}
+pathways=${pathways}
+outdir=${outdir}
+database=${database}
+taxon=${taxon}
+biocurator=${biocurator}
+
+# args
+if [ "${goterms}" == "true" ]; then ARGS="${ARGS} -g "; fi
+if [ "${pathways}" == "true" ]; then ARGS="${ARGS} -p "; fi
+if [ "${database}" != "" ]; then ARGS="${ARGS} -D ${database} "; fi
+if [ "${taxon}" != "" ] ; then ARGS="${ARGS} -x ${taxon} "; fi
+if [ "${biocurator}" != "" ] ; then ARGS="${ARGS} -n ${biocurator} "; fi
+ARGS=" -d ${outdir} -f tsv,json,xml,html,gff3,svg ${ARGS}"
+
+module purge
+module load TACC
+module load tacc-singularity
+module load launcher
+echo "singularity run -B /scratch/projects/tacc/bio/interproscan:/data -B /scratch/projects/tacc/bio/interproscan/interproscan-5.36-75.0/data:/opt/interproscan/data docker://agbase/interproscan:5.36-75.0_0 -i ${query} ${ARGS} "
+singularity run -B /scratch/projects/tacc/bio/interproscan:/data -B /scratch/projects/tacc/bio/interproscan/interproscan-5.36-75.0/data:/opt/interproscan/data docker://agbase/interproscan:5.36-75.0_0 -i ${query} ${ARGS}
